@@ -33,3 +33,14 @@ def backtrack(pos, used):
     x, y = divmod(pos, 10) # x: 열, y: 행
     if M[y][x] == 1:
         for size in range(5, 0, -1):
+            if S[size] > 0 and check(x, y, size):
+                S[size] -= 1
+                fill(x, y, size, 0)
+                backtrack(pos + 1, used + 1)
+                fill(x, y, size, 1)
+                S[size] += 1
+    else:
+        backtrack(pos + 1, used)
+        
+backtrack(0,0)
+print(result if result !=float('inf') else -1)
